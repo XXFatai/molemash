@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">打地鼠</string>
+	<string name="mode_ready">打地鼠\n点击开始</string>
+	<string name="mode_pause">暂停\n点击回到游戏</string>
+	<string name="mode_lose">游戏结束\n分数：%1$d \n点击重新开始</string>
+</resources>
