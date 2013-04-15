@@ -56,12 +56,12 @@ public class MolemashView extends View{
 		if(mMode == READY | mMode == LOSE){
 			initNewGame();
 			setMode(RUNNING);
-			//update();
+			update();
 			return;
 		}
 		if(mMode == PAUSE){
 			setMode(RUNNING);
-			//update();
+			update();
 		}
 	}
 	
@@ -110,7 +110,7 @@ public class MolemashView extends View{
 		if (newMode == RUNNING && oldMode != RUNNING){
 			mStatusText.setVisibility(View.INVISIBLE);
 			mBackgroundView.setVisibility(View.VISIBLE);
-			update();
+			
 		}
 		
 		Resources res = getContext().getResources();
