@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -36,9 +37,14 @@ public class MolemashView extends View{
 	public MolemashView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
-		
+		initMolemashView();
 	}
 	
+	private void initMolemashView() {
+		// TODO Auto-generated method stub
+		setFocusable(true);
+	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
@@ -62,7 +68,9 @@ public class MolemashView extends View{
 		if(mMode == PAUSE){
 			setMode(RUNNING);
 			update();
+			return;
 		}
+		return;
 	}
 	
 	private void initNewGame(){
@@ -83,8 +91,8 @@ public class MolemashView extends View{
 	}
 	
 	private void updateMole(){
-		mMoleHeight = (float)Math.random() * 480 - getBottom();
-		mMoleWidth = (float)Math.random() * 320 - getRight();
+		mMoleHeight = (float)Math.random() * (getBottom() - mMole.getHeight());
+		mMoleWidth = (float)Math.random() * (getRight() - mMole.getWidth());
 	}
 	
 	private RefreshHandler mRedrawHandler = new RefreshHandler();
@@ -93,8 +101,9 @@ public class MolemashView extends View{
 
         @Override
         public void handleMessage(Message msg) {
-            MolemashView.this.update();
-            MolemashView.this.invalidate();
+        	MolemashView.this.update();
+        	MolemashView.this.invalidate();
+            
         }
 
         public void sleep(long delayMillis) {
@@ -109,8 +118,9 @@ public class MolemashView extends View{
 		
 		if (newMode == RUNNING && oldMode != RUNNING){
 			mStatusText.setVisibility(View.INVISIBLE);
-			mBackgroundView.setVisibility(View.VISIBLE);
-			
+			update();
+			mBackgroundView.setVisibility(View.INVISIBLE);
+			return;
 		}
 		
 		Resources res = getContext().getResources();

@@ -13,6 +13,7 @@ public class BackgroundView extends View{
 	public BackgroundView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
+		setFocusable(true);
 		mBackground = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 	}
 	@Override
