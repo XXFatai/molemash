@@ -119,7 +119,7 @@ public class MolemashView extends View{
 		if (newMode == RUNNING && oldMode != RUNNING){
 			mStatusText.setVisibility(View.INVISIBLE);
 			update();
-			mBackgroundView.setVisibility(View.INVISIBLE);
+			mBackgroundView.setVisibility(View.VISIBLE);
 			return;
 		}
 		

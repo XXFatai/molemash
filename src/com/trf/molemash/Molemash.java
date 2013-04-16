@@ -15,7 +15,7 @@ public class Molemash extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.molemash_lauout);
+		setContentView(R.layout.molemash_layout);
 		mMolemashView = (MolemashView)findViewById(R.id.molemash);
 		mMolemashView.setDependentView((TextView)findViewById(R.id.text), (BackgroundView)findViewById(R.id.background));
 		

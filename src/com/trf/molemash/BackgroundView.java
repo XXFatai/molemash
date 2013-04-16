@@ -4,12 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class BackgroundView extends View{
 
-	Bitmap mBackground;
+	private Bitmap mBackground;
 	public BackgroundView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
@@ -20,7 +21,7 @@ public class BackgroundView extends View{
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-		canvas.drawBitmap(mBackground, 0, 0, null);
+		canvas.drawBitmap(mBackground, 0, 0, new Paint());
 	}
 
 }
