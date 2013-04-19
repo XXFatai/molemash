@@ -22,13 +22,14 @@ public class MolemashView extends View{
     public static final int LOSE = 3;
 	private static final String TAG = "OnDraw";
     
-    private long mScore = 0;
+	private int times = 0;
+	public int mScore = 0;
+    public long mMoveDelay = 1000;
     private long mLastMove = 0;
-    private long mMoveDelay = 1000;
     private TextView mStatusText;
     
-    private float mMoleHeight;
-    private float mMoleWidth;
+    public float mMoleTop;
+    public float mMoleLeft;
     
     private View mBackgroundView;
     
@@ -49,8 +50,7 @@ public class MolemashView extends View{
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-		Log.i(TAG, "调用次数");
-		canvas.drawBitmap(mMole, mMoleWidth, mMoleHeight, null);
+		canvas.drawBitmap(mMole, mMoleLeft, mMoleTop, null);
 	}
 	
 	public void setDependentView(TextView msgText, View backgroundView ){
@@ -76,26 +76,32 @@ public class MolemashView extends View{
 	private void initNewGame(){
 		mScore = 0;
 		mMoveDelay = 1000;
+		times = 60;
 	}
 	
 	public void update(){
 		if (mMode == RUNNING){
 			long now = System.currentTimeMillis();
-			
+			Log.i(TAG, "times = " + times + "score=" + mScore);
 			if (now - mLastMove > mMoveDelay){
 				updateMole();
 				mLastMove = now;
 			}
-			mRedrawHandler.sleep(mMoveDelay);
+			if (times >= 0){
+				mRedrawHandler.sleep(mMoveDelay);
+				times--;
+			}else {
+				setMode(LOSE);
+			}
 		}
 	}
 	
 	private void updateMole(){
-		mMoleHeight = (float)Math.random() * (getBottom() - mMole.getHeight());
-		mMoleWidth = (float)Math.random() * (getRight() - mMole.getWidth());
+		mMoleTop = (float)Math.random() * (getBottom() - mMole.getHeight());
+		mMoleLeft = (float)Math.random() * (getRight() - mMole.getWidth());
 	}
 	
-	private RefreshHandler mRedrawHandler = new RefreshHandler();
+	public RefreshHandler mRedrawHandler = new RefreshHandler();
 
     class RefreshHandler extends Handler {
 
@@ -103,7 +109,6 @@ public class MolemashView extends View{
         public void handleMessage(Message msg) {
         	MolemashView.this.update();
         	MolemashView.this.invalidate();
-            
         }
 
         public void sleep(long delayMillis) {
@@ -135,11 +140,14 @@ public class MolemashView extends View{
 			str = res.getText(R.string.mode_pause);
 		}
 		if(newMode == LOSE){
+            mBackgroundView.setVisibility(View.GONE);
 			str = res.getString(R.string.mode_lose, mScore);
 		}
 		
 		mStatusText.setText(str);
 		mStatusText.setVisibility(View.VISIBLE);
 	}
-
+	public int getGameState(){
+		return mMode;
+	}
 }
