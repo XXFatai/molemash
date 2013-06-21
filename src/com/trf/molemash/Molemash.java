@@ -31,14 +31,16 @@ public class Molemash extends Activity{
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				if (mMolemashView.getGameState() == MolemashView.RUNNING) {
-					//Èç¹û event.xÔÚ mMoleLeftÓëmMoleLeft+mMoleWidthÖ®¼ä
-					//	  event.yÔÚmMoleTopÓëmMoleTop+mMoleHeightÖ®¼ä,Ôò´òÖĞmole²¢¼Ó·Ö
+					// å¦‚æœ event.xåœ¨ mMoleLeftä¸mMoleLeft+mMoleWidthä¹‹é—´
+					// event.yåœ¨mMoleTopä¸mMoleTop+mMoleHeightä¹‹é—´,åˆ™æ‰“ä¸­moleå¹¶åŠ åˆ†
 					if (mMolemashView.mMoleLeft <= event.getX() && event.getX() <= (mMolemashView.mMoleLeft+mMolemashView.mMole.getWidth())){
 						if(mMolemashView.mMoleTop <= event.getY() && event.getY() <= (mMolemashView.mMoleTop+mMolemashView.mMole.getHeight())){
 							mMolemashView.mScore += 10;
 							mScore.setText(mMolemashView.mScore + "");
-							mMolemashView.update();
+							mMolemashView.updateMole();
 							mMolemashView.invalidate();
+							mMolemashView.mLastMove = System.currentTimeMillis();
+							mMolemashView.update();
 						}
 					}
 				}else {
