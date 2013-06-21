@@ -23,9 +23,9 @@ public class MolemashView extends View{
 	private static final String TAG = "OnDraw";
     
 	private int times = 0;
-	public int mScore = 0;
+    public int mScore = 0;
     public long mMoveDelay = 1000;
-    private long mLastMove = 0;
+    public long mLastMove = 0;
     private TextView mStatusText;
     
     public float mMoleTop;
@@ -96,7 +96,7 @@ public class MolemashView extends View{
 		}
 	}
 	
-	private void updateMole(){
+	public void updateMole(){
 		mMoleTop = (float)Math.random() * (getBottom() - mMole.getHeight());
 		mMoleLeft = (float)Math.random() * (getRight() - mMole.getWidth());
 	}
